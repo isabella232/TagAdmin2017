@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Easily manage tags assigned to your work items in team project.</Description>
     <License>Resources\LICENSE</License>
     <Icon>Resources\Package.ico</Icon>
-    <PreviewImage>Resources\Images.png</PreviewImage>
+    <PreviewImage>Resources\Preview.png</PreviewImage>
     <Tags>vsts, visual studio team services, tag, management, tag manager, tag admin, tags</Tags>
   </Metadata>
   <Installation InstalledByMsi="false">
