@@ -32,7 +32,7 @@ With this extension you can easily manage Work Item tags from right with in Visu
 - Rename tag
 - Delete tags
 - View work items linked to tags
-- Supports both VSO and TFS
+- Supports both VSTS and TFS
 - Uses Integrated Authentication
 
 ## Permissions to administer Tags
