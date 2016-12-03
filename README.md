@@ -4,8 +4,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ll0pmvx51dosjr13?svg=true)](https://ci.appveyor.com/project/onlyutkarsh/tagadmin2017)
 
 <!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
-or get the [CI build](http://vsixgallery.com/extension/a1e38ebe-f115-4ad6-bb1a-bf1c62ff4758/).
+Download this extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/vsgallery/57f852fb-3549-46c6-96d6-53ec65019a1a)
+or get the [CI build](http://vsixgallery.com/extension/96554fd6-649e-46f9-9162-3291177d9379/).
 
 ---------------------------------------
 
