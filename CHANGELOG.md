@@ -1,4 +1,4 @@
-# Road map
+# Roadmap
 
 - [x] Enable compatibility for Visual Studio 2017
 - [ ] Support multiple editions of Visual Studio with single vsix package.
@@ -21,5 +21,5 @@ on the official Visual Studio extension gallery.
 - [x] Rename tag
 - [x] Delete tags
 - [x] View work items linked to tags
-- [x] Supports both VSO and TFS
+- [x] Supports both VSTS and TFS
 - [x] Uses Integrated Authentication
