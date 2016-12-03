@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="a1e38ebe-f115-4ad6-bb1a-bf1c62ff4758" Version="1.0" Language="en-US" Publisher="Utkarsh Shigihalli and Tarun Arora" />
+    <Identity Id="96554fd6-649e-46f9-9162-3291177d9379" Version="1.0" Language="en-US" Publisher="Utkarsh Shigihalli and Tarun Arora" />
     <DisplayName>Tag Admin for Visual Studio 2017</DisplayName>
     <Description xml:space="preserve">Easily manage tags assigned to your work items in team project.</Description>
     <License>Resources\LICENSE</License>
