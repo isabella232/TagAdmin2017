@@ -7,17 +7,68 @@
              xmlns:converters="clr-namespace:TagAdmin.UI.Converters"
              xmlns:wpf="clr-namespace:Microsoft.TeamFoundation.Controls.WPF;assembly=Microsoft.TeamFoundation.Controls"
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             x:Name="AssociatedWorkItemControl"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="HyperlinkLikeButton"
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="TextBlock.FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground"
+                    Value="{DynamicResource {x:Static platformUI:EnvironmentColors.ControlLinkTextBrushKey}}" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="true">
+                    <Setter Property="ToolTip" Value="Open Work Item"></Setter>
+                    <Setter Property="TextBlock.FontWeight"
+                            Value="Bold"></Setter>
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource {x:Static platformUI:EnvironmentColors.ControlLinkTextHoverBrushKey}}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <ControlTemplate.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextDecorations"
+                                                Value="Underline" />
+                                    </Style>
+                                </ControlTemplate.Resources>
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <DockPanel Margin="5">
-        <TextBlock Margin="5" Text="{Binding StatusMessage}" DockPanel.Dock="Top" FontWeight="Bold" TextWrapping="Wrap"/>
+        <TextBlock Margin="5"
+                   Text="{Binding StatusMessage}"
+                   DockPanel.Dock="Top"
+                   FontWeight="Bold"
+                   TextWrapping="Wrap" />
         <StackPanel DockPanel.Dock="Top">
-            <ListBox HorizontalContentAlignment="Stretch" BorderThickness="0"
+            <ListBox HorizontalContentAlignment="Stretch"
+                     BorderThickness="0"
                                   ItemsSource="{Binding WorkitemDetails}"
-                     x:Name="ListBox" Margin="5">
+                     x:Name="ListBox"
+                     Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Expander IsExpanded="False" ExpandDirection="Down">
+                        <Expander IsExpanded="False"
+                                  Tag="{Binding ElementName=ListBox, Path=DataContext}"
+                                  ExpandDirection="Down">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"
@@ -31,7 +82,15 @@
                                     </TextBlock>
                                 </StackPanel>
                             </Expander.Header>
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                            <Expander.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Open"
+                                              Command="{Binding PlacementTarget.Tag.OpenWorkitemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={converters:DebuggingConverter}}"
+                                              CommandParameter="{Binding Id, Converter={converters:DebuggingConverter}}"></MenuItem>
+                                </ContextMenu>
+                            </Expander.ContextMenu>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Hidden">
                                 <Grid Margin="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -48,24 +107,93 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Text="ID: " FontWeight="Bold" Grid.Column="0" Grid.Row="0" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding Id}" Grid.Column="1" Grid.Row="0" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Title: " FontWeight="Bold" Grid.Column="0" Grid.Row="1" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.Title}" TextWrapping="Wrap" TextAlignment="Justify" Grid.Column="1" Grid.Row="1" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Work Item Type: " FontWeight="Bold" Grid.Column="0" Grid.Row="2" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.WorkItemType}" Grid.Column="1" Grid.Row="2" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="State: " FontWeight="Bold" Grid.Column="0" Grid.Row="3" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.State}" Grid.Column="1" Grid.Row="3" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Tags: " FontWeight="Bold" Grid.Column="0" Grid.Row="4" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.Tags}" Grid.Column="1" Grid.Row="4" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Area Path: " FontWeight="Bold" Grid.Column="0" Grid.Row="5" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.AreaPath}" Grid.Column="1" Grid.Row="5" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Iteration Path: " FontWeight="Bold" Grid.Column="0" Grid.Row="6" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.IterationPath}" Grid.Column="1" Grid.Row="6" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Created Date: " FontWeight="Bold" Grid.Column="0" Grid.Row="7" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.CreatedDate}" Grid.Column="1" Grid.Row="7" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="Created By: " FontWeight="Bold" Grid.Column="0" Grid.Row="8" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
-                                    <TextBlock Text="{Binding WorkItemFields.CreatedBy}" Grid.Column="1" Grid.Row="8" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}"/>
+                                    <TextBlock Text="ID: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="0"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <Button Grid.Column="1"
+                                            Grid.Row="0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding DataContext.OpenWorkitemCommand, ElementName=ListBox}"
+                                            CommandParameter="{Binding Id}"
+                                            Style="{StaticResource HyperlinkLikeButton}">
+                                        <TextBlock Text="{Binding Id}"></TextBlock>
+                                    </Button>
+                                    <TextBlock Text="Title: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="1"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.Title}"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Justify"
+                                               Grid.Column="1"
+                                               Grid.Row="1"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Work Item Type: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="2"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.WorkItemType}"
+                                               Grid.Column="1"
+                                               Grid.Row="2"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="State: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="3"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.State}"
+                                               Grid.Column="1"
+                                               Grid.Row="3"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Tags: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="4"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.Tags}"
+                                               Grid.Column="1"
+                                               Grid.Row="4"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Area Path: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="5"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.AreaPath}"
+                                               Grid.Column="1"
+                                               Grid.Row="5"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Iteration Path: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="6"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.IterationPath}"
+                                               Grid.Column="1"
+                                               Grid.Row="6"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Created Date: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="7"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.CreatedDate}"
+                                               Grid.Column="1"
+                                               Grid.Row="7"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="Created By: "
+                                               FontWeight="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="8"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
+                                    <TextBlock Text="{Binding WorkItemFields.CreatedBy}"
+                                               Grid.Column="1"
+                                               Grid.Row="8"
+                                               Foreground="{DynamicResource {x:Static vsfx:VsBrushes.CommandBarTextActiveKey}}" />
                                 </Grid>
                             </ScrollViewer>
                         </Expander>

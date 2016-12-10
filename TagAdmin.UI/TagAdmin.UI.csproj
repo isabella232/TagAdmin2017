@@ -129,6 +129,7 @@
     <Reference Include="Microsoft.TeamFoundation.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_ExternalReferences\Microsoft\Microsoft.TeamFoundation.Controls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.Core.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.107.2-preview\lib\net45\Microsoft.TeamFoundation.Core.WebApi.dll</HintPath>
@@ -246,6 +247,10 @@
       <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.107.2-preview\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls">
+      <HintPath>..\_ExternalReferences\Microsoft\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Proxy, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.107.2-preview\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Proxy.dll</HintPath>
       <Private>False</Private>
@@ -279,6 +284,9 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_ExternalReferences\VSSDK\v4.0\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TeamFoundation.WorkItemTracking">
+      <HintPath>..\_ExternalReferences\Microsoft\Microsoft.VisualStudio.TeamFoundation.WorkItemTracking.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -356,6 +364,7 @@
     <Compile Include="Events\TriggerAssociatedWorkItems.cs" />
     <Compile Include="Events\TriggerDeleteTags.cs" />
     <Compile Include="Events\TriggerGetTags.cs" />
+    <Compile Include="Events\ViewWorkitemForm.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Model\TagModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
